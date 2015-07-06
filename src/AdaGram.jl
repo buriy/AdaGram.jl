@@ -31,7 +31,7 @@ end
 type VectorModel
 	frequencies::DenseArray{Int64}
 	code::DenseArray{Int8, 2}
-	path::DenseArray{Int32, 2}
+	path::DenseArray{Int64, 2}
 	In::DenseArray{Tsf, 3}
 	Out::DenseArray{Tsf, 2}
 	alpha::Float64
@@ -69,7 +69,7 @@ end
 
 function VectorModel(max_length::Int64, V::Int64, M::Int64, T::Int64=1, alpha::Float64=1e-2, 
 		d::Float64=0.)
-	path = shared_zeros(Int32, (max_length, V))
+	path = shared_zeros(Int64, (max_length, V))
 	code = shared_zeros(Int8, (max_length, V))
 
 	code[:] = -1
@@ -93,7 +93,7 @@ function VectorModel(freqs::Array{Int64}, M::Int64, T::Int64=1, alpha::Float64=1
 
 	max_length = maximum(map(x -> length(x.code), outputs))
 
-	path = shared_zeros(Int32, (max_length, V))
+	path = shared_zeros(Int64, (max_length, V))
 	code = shared_zeros(Int8, (max_length, V))
 
 	for v in 1:V
